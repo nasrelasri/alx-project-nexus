@@ -99,5 +99,254 @@ export const mockProducts: Product[] = [
     originalPrice: "$112",
     discount: "12% off",
   },
+  {
+    id: "suede-bomber-jacket",
+    image:
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
+    title: "Suede Bomber Jacket",
+    rating: 4.7,
+    price: "$450",
+    originalPrice: "$520",
+    discount: "13% off",
+  },
+  {
+    id: "organic-supima-tee",
+    image:
+      "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=800&q=80",
+    title: "Organic Supima Tee",
+    rating: 4.4,
+    price: "$48",
+    originalPrice: "$58",
+    discount: "17% off",
+  },
+  {
+    id: "seamless-puffer-vest",
+    image:
+      "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format&fit=crop&w=800&q=80",
+    title: "Seamless Puffer Vest",
+    rating: 4.3,
+    price: "$198",
+    originalPrice: "$230",
+    discount: "14% off",
+  },
+  {
+    id: "heritage-work-boot",
+    image:
+      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80",
+    title: "Heritage Work Boot",
+    rating: 4.8,
+    price: "$285",
+    originalPrice: "$330",
+    discount: "14% off",
+  },
+  {
+    id: "minimalist-leather-sneaker",
+    image:
+      "https://images.unsplash.com/photo-1514986888952-8cd320577b68?auto=format&fit=crop&w=800&q=80",
+    title: "Minimalist Leather Sneaker",
+    rating: 4.6,
+    price: "$215",
+    originalPrice: "$248",
+    discount: "13% off",
+  },
+  {
+    id: "recycled-fleece-hoodie",
+    image:
+      "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=800&q=80",
+    title: "Recycled Fleece Hoodie",
+    rating: 4.4,
+    price: "$128",
+    originalPrice: "$150",
+    discount: "15% off",
+  },
+  {
+    id: "travel-tech-blazer",
+    image:
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
+    title: "Travel Tech Blazer",
+    rating: 4.5,
+    price: "$360",
+    originalPrice: "$410",
+    discount: "12% off",
+  },
+  {
+    id: "japanese-raw-denim",
+    image:
+      "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=800&q=80",
+    title: "Japanese Raw Denim",
+    rating: 4.7,
+    price: "$240",
+    originalPrice: "$280",
+    discount: "14% off",
+  },
+  {
+    id: "ultralight-hiking-shell",
+    image:
+      "https://images.unsplash.com/photo-1463107971871-fbac9ddb920f?auto=format&fit=crop&w=800&q=80",
+    title: "Ultralight Hiking Shell",
+    rating: 4.3,
+    price: "$210",
+    originalPrice: "$248",
+    discount: "15% off",
+  },
+  {
+    id: "quilted-field-jacket",
+    image:
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
+    title: "Quilted Field Jacket",
+    rating: 4.5,
+    price: "$310",
+    originalPrice: "$360",
+    discount: "14% off",
+  },
+  {
+    id: "classic-trench-coat",
+    image:
+      "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=800&q=80",
+    title: "Classic Trench Coat",
+    rating: 4.8,
+    price: "$540",
+    originalPrice: "$600",
+    discount: "10% off",
+  },
+  {
+    id: "airweight-running-short",
+    image:
+      "https://images.unsplash.com/photo-1463107971871-fbac9ddb920f?auto=format&fit=crop&w=800&q=80",
+    title: "Airweight Running Short",
+    rating: 4.3,
+    price: "$68",
+    originalPrice: "$82",
+    discount: "17% off",
+  },
+  {
+    id: "refined-knit-polo",
+    image:
+      "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=800&q=80",
+    title: "Refined Knit Polo",
+    rating: 4.4,
+    price: "$138",
+    originalPrice: "$162",
+    discount: "15% off",
+  },
+  {
+    id: "textured-terry-sweatshirt",
+    image:
+      "https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=800&q=80",
+    title: "Textured Terry Sweatshirt",
+    rating: 4.5,
+    price: "$128",
+    originalPrice: "$150",
+    discount: "15% off",
+  },
+  {
+    id: "heirloom-leather-belt",
+    image:
+      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80",
+    title: "Heirloom Leather Belt",
+    rating: 4.7,
+    price: "$98",
+    originalPrice: "$118",
+    discount: "17% off",
+  },
+  {
+    id: "artisan-weekender-bag",
+    image:
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+    title: "Artisan Weekender Bag",
+    rating: 4.8,
+    price: "$420",
+    originalPrice: "$480",
+    discount: "12% off",
+  },
+  {
+    id: "everyday-crossbody-pack",
+    image:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80",
+    title: "Everyday Crossbody Pack",
+    rating: 4.4,
+    price: "$88",
+    originalPrice: "$104",
+    discount: "15% off",
+  },
+  {
+    id: "stormproof-parka",
+    image:
+      "https://images.unsplash.com/photo-1484519332611-516457305ff6?auto=format&fit=crop&w=800&q=80",
+    title: "Stormproof Parka",
+    rating: 4.8,
+    price: "$580",
+    originalPrice: "$650",
+    discount: "11% off",
+  },
+  {
+    id: "studio-yoga-jogger",
+    image:
+      "https://images.unsplash.com/photo-1463107971871-fbac9ddb920f?auto=format&fit=crop&w=800&q=80",
+    title: "Studio Yoga Jogger",
+    rating: 4.2,
+    price: "$98",
+    originalPrice: "$120",
+    discount: "18% off",
+  },
+  {
+    id: "hybrid-commuter-coat",
+    image:
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
+    title: "Hybrid Commuter Coat",
+    rating: 4.6,
+    price: "$420",
+    originalPrice: "$470",
+    discount: "11% off",
+  },
+  {
+    id: "eco-dyed-cable-knit",
+    image:
+      "https://images.unsplash.com/photo-1509783236416-c9ad59bae472?auto=format&fit=crop&w=800&q=80",
+    title: "Eco-Dyed Cable Knit",
+    rating: 4.5,
+    price: "$185",
+    originalPrice: "$214",
+    discount: "14% off",
+  },
+  {
+    id: "seaside-camp-shirt",
+    image:
+      "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?auto=format&fit=crop&w=800&q=80",
+    title: "Seaside Camp Shirt",
+    rating: 4.2,
+    price: "$115",
+    originalPrice: "$135",
+    discount: "15% off",
+  },
+  {
+    id: "technical-biker-jacket",
+    image:
+      "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=800&q=80",
+    title: "Technical Biker Jacket",
+    rating: 4.7,
+    price: "$510",
+    originalPrice: "$580",
+    discount: "12% off",
+  },
+  {
+    id: "woven-panama-hat",
+    image:
+      "https://images.unsplash.com/photo-1475180098004-ca77a66827be?auto=format&fit=crop&w=800&q=80",
+    title: "Woven Panama Hat",
+    rating: 4.3,
+    price: "$88",
+    originalPrice: "$104",
+    discount: "15% off",
+  },
+  {
+    id: "heritage-satchel-pack",
+    image:
+      "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80",
+    title: "Heritage Satchel Pack",
+    rating: 4.6,
+    price: "$260",
+    originalPrice: "$298",
+    discount: "13% off",
+  },
 ];
-
