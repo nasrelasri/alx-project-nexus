@@ -1,3 +1,4 @@
+import Link from "next/link";
 import ProductCard from "./ProductCard";
 import { mockProducts } from "../products/mockData";
 
@@ -27,6 +28,15 @@ const Trending = () => {
               discount={product.discount}
             />
           ))}
+        </div>
+
+        <div className="mt-10 flex justify-center">
+          <Link
+            href="/products"
+            className="rounded-md bg-neutral-900 px-8 py-3 font-medium text-white transition-all hover:bg-neutral-800"
+          >
+            View All Products
+          </Link>
         </div>
       </div>
     </section>
