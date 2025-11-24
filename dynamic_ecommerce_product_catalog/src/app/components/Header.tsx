@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const navItems = [
   { label: "Shop", href: "/products" },
@@ -9,8 +9,31 @@ const navItems = [
   { label: "Contact", href: "/contact" },
 ];
 
-const Header = () => {
+interface HeaderProps {
+  searchQuery?: string;
+  onSearchChange?: (query: string) => void;
+}
+
+const Header = ({ searchQuery = "", onSearchChange }: HeaderProps = {}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [localSearch, setLocalSearch] = useState(searchQuery);
+
+  // Sync with parent searchQuery
+  useEffect(() => {
+    setLocalSearch(searchQuery);
+  }, [searchQuery]);
+
+  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setLocalSearch(value);
+    // Real-time search as user types
+    onSearchChange?.(value);
+  };
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSearchChange?.(localSearch);
+  };
 
   return (
     <header className="px-4 py-4 sm:px-6">
@@ -139,7 +162,10 @@ const Header = () => {
             ))}
           </nav>
 
-          <form className="flex items-center justify-end gap-4 min-w-sm">
+          <form 
+            onSubmit={handleSearchSubmit}
+            className="flex items-center justify-end gap-4 min-w-sm"
+          >
             <label className="flex w-full max-w-sm items-center gap-2 rounded-full bg-neutral-100 px-4 py-2 text-sm text-neutral-500">
               <span className="sr-only">Search products</span>
               <svg
@@ -158,9 +184,36 @@ const Header = () => {
               </svg>
               <input
                 type="search"
+                value={localSearch}
+                onChange={handleSearchInput}
                 placeholder="Find a product…"
                 className="w-full bg-transparent text-neutral-700 placeholder:text-neutral-500 focus:outline-none"
               />
+              {localSearch && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setLocalSearch("");
+                    onSearchChange?.("");
+                  }}
+                  className="text-neutral-400 hover:text-neutral-700"
+                  aria-label="Clear search"
+                >
+                  <svg
+                    className="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
+              )}
             </label>
 
             <button

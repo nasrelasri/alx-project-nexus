@@ -30,6 +30,7 @@ const ProductsPage = () => {
   const [sortBy, setSortBy] = useState<"featured" | "price-low" | "price-high">(
     "featured"
   );
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Extract unique categories from products
   const availableCategories = useMemo(() => {
@@ -37,18 +38,34 @@ const ProductsPage = () => {
     return Array.from(new Set(categories)).sort();
   }, []);
 
-  // Filter and sort products based on selected categories, price range, and sort option
+  // Filter and sort products based on search, selected categories, price range, and sort option
   const filteredProducts = useMemo(() => {
-    const filtered = mockProducts.filter((product) => {
+    let filtered = mockProducts;
+
+    // STEP 1: Apply search filter first
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter((product) =>
+        product.title.toLowerCase().includes(query) ||
+        product.category.toLowerCase().includes(query) ||
+        product.id.toLowerCase().includes(query)
+      );
+    }
+
+    // STEP 2: Apply category filter
+    if (selectedCategories.length > 0) {
+      filtered = filtered.filter((product) =>
+        selectedCategories.includes(product.category)
+      );
+    }
+
+    // STEP 3: Apply price filter
+    filtered = filtered.filter((product) => {
       const price = parseFloat(product.price.replace("$", ""));
-      const categoryMatch =
-        selectedCategories.length === 0 ||
-        selectedCategories.includes(product.category);
-      const priceMatch = price >= priceRange[0] && price <= priceRange[1];
-      return categoryMatch && priceMatch;
+      return price >= priceRange[0] && price <= priceRange[1];
     });
 
-    // Apply sorting
+    // STEP 4: Apply sorting
     const sorted = [...filtered];
     if (sortBy === "price-low") {
       sorted.sort((a, b) => {
@@ -65,7 +82,7 @@ const ProductsPage = () => {
     }
 
     return sorted;
-  }, [selectedCategories, priceRange, sortBy]);
+  }, [searchQuery, selectedCategories, priceRange, sortBy]);
 
   // Pagination logic
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
@@ -115,7 +132,13 @@ const ProductsPage = () => {
   const clearFilters = () => {
     setSelectedCategories([]);
     setPriceRange([priceMinMax.min, priceMinMax.max]);
+    setSearchQuery("");
     setCurrentPage(1);
+  };
+
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+    setCurrentPage(1); // Reset to page 1 when searching
   };
 
   // Filter content JSX (reusable for desktop and mobile)
@@ -207,7 +230,10 @@ const ProductsPage = () => {
 
   return (
     <div className="min-h-screen bg-white text-neutral-900">
-      <Header />
+      <Header 
+        searchQuery={searchQuery}
+        onSearchChange={handleSearchChange}
+      />
 
       {/* Mobile Filter Drawer */}
       {isMobileFilterOpen && (
@@ -305,10 +331,11 @@ const ProductsPage = () => {
                 </h1>
               </div>
               <div className="flex items-center gap-4">
-                {filteredProducts.length !== mockProducts.length && (
+                {(filteredProducts.length !== mockProducts.length || searchQuery.trim()) && (
                   <p className="hidden text-sm text-neutral-600 sm:block">
                     Showing {filteredProducts.length} of {mockProducts.length}{" "}
                     products
+                    {searchQuery.trim() && ` for "${searchQuery}"`}
                   </p>
                 )}
                 {/* Sort Dropdown */}
