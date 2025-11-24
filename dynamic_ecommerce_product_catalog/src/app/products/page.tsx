@@ -1,24 +1,32 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import ProductCard from "../components/ProductCard";
-import { mockProducts } from "./mockData";
+import { Product } from "./mockData";
+import { productService } from "../services/productService";
 
 const ITEMS_PER_PAGE = 9;
 
 const ProductsPage = () => {
+  // API data states
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   // Calculate min and max prices from products
   const priceMinMax = useMemo(() => {
-    const prices = mockProducts.map((product) =>
+    if (products.length === 0) return { min: 0, max: 1000 };
+    
+    const prices = products.map((product) =>
       parseFloat(product.price.replace("$", ""))
     );
     return {
       min: Math.floor(Math.min(...prices)),
       max: Math.ceil(Math.max(...prices)),
     };
-  }, []);
+  }, [products]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -32,15 +40,34 @@ const ProductsPage = () => {
   );
   const [searchQuery, setSearchQuery] = useState("");
 
+  // Fetch products on component mount
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        const data = await productService.getAllProducts();
+        setProducts(data);
+      } catch (err) {
+        setError('Failed to load products. Please try again.');
+        console.error('Error fetching products:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   // Extract unique categories from products
   const availableCategories = useMemo(() => {
-    const categories = mockProducts.map((product) => product.category);
+    const categories = products.map((product) => product.category);
     return Array.from(new Set(categories)).sort();
-  }, []);
+  }, [products]);
 
   // Filter and sort products based on search, selected categories, price range, and sort option
   const filteredProducts = useMemo(() => {
-    let filtered = mockProducts;
+    let filtered = products;
 
     // STEP 1: Apply search filter first
     if (searchQuery.trim()) {
@@ -82,7 +109,7 @@ const ProductsPage = () => {
     }
 
     return sorted;
-  }, [searchQuery, selectedCategories, priceRange, sortBy]);
+  }, [products, searchQuery, selectedCategories, priceRange, sortBy]);
 
   // Pagination logic
   const totalPages = Math.ceil(filteredProducts.length / ITEMS_PER_PAGE);
@@ -177,7 +204,7 @@ const ProductsPage = () => {
               />
               <span>{category}</span>
               <span className="ml-auto text-xs text-neutral-400">
-                ({mockProducts.filter((p) => p.category === category).length})
+                ({products.filter((p) => p.category === category).length})
               </span>
             </label>
           ))}
@@ -227,6 +254,57 @@ const ProductsPage = () => {
       </div>
     </>
   );
+
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white text-neutral-900">
+        <Header 
+          searchQuery={searchQuery}
+          onSearchChange={handleSearchChange}
+        />
+        <main className="px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex items-center justify-center py-20">
+              <div className="text-center">
+                <div className="inline-block h-12 w-12 animate-spin rounded-full border-4 border-solid border-neutral-900 border-r-transparent"></div>
+                <p className="mt-4 text-neutral-600">Loading products...</p>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-white text-neutral-900">
+        <Header 
+          searchQuery={searchQuery}
+          onSearchChange={handleSearchChange}
+        />
+        <main className="px-4 py-12 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="flex items-center justify-center py-20">
+              <div className="text-center">
+                <p className="text-lg text-red-600">{error}</p>
+                <button
+                  onClick={() => window.location.reload()}
+                  className="mt-4 rounded-md bg-neutral-900 px-6 py-2 text-white transition hover:bg-neutral-800"
+                >
+                  Retry
+                </button>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white text-neutral-900">
@@ -331,9 +409,9 @@ const ProductsPage = () => {
                 </h1>
               </div>
               <div className="flex items-center gap-4">
-                {(filteredProducts.length !== mockProducts.length || searchQuery.trim()) && (
+                {(filteredProducts.length !== products.length || searchQuery.trim()) && (
                   <p className="hidden text-sm text-neutral-600 sm:block">
-                    Showing {filteredProducts.length} of {mockProducts.length}{" "}
+                    Showing {filteredProducts.length} of {products.length}{" "}
                     products
                     {searchQuery.trim() && ` for "${searchQuery}"`}
                   </p>
